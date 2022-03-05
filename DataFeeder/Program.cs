@@ -87,8 +87,8 @@ await AnsiConsole.Progress()
 
                     var items = g.Skip(i * batchSize).Take(count);
 
-                    // not sure anymore, if this greatly improves performance
-                    await db.BulkInsertAsync(items, cancellationToken);
+                    await db.AddRangeAsync(items);
+                    await db.SaveChangesAsync();
                     dbTask.Increment(count);
                 }
             });
